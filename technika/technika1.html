@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VR Red Cube</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@react-three/xr@latest/dist/react-three-xr.umd.min.js"></script>
 </head>
-<body>
+<body style="margin: 0; overflow: hidden;">
     <script>
         // Set up the scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
@@ -22,14 +21,13 @@
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
-        // Add a light source
-        const light = new THREE.PointLight(0xffffff, 1, 100);
-        light.position.set(10, 10, 10);
-        scene.add(light);
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Ambient light
+        scene.add(ambientLight);
 
-        // Add a secondary light source for "highlighting"
-        const highlight = new THREE.PointLight(0xffff00, 0, 10); // Initially off
-        scene.add(highlight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Directional light
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
 
         // Position the camera
         camera.position.z = 5;
@@ -39,19 +37,16 @@
         const mouse = new THREE.Vector2();
 
         function onMouseMove(event) {
-            // Update mouse position
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            // Check for intersection with cube
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObject(cube);
 
             if (intersects.length > 0) {
-                highlight.position.copy(intersects[0].point);
-                highlight.intensity = 2; // Turn on highlight
+                cube.material.emissive.setHex(0xffff00); // Light up the cube
             } else {
-                highlight.intensity = 0; // Turn off highlight
+                cube.material.emissive.setHex(0x000000); // Turn off the light
             }
         }
 
@@ -61,7 +56,6 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            // Rotate the cube for a simple visual effect
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
 
@@ -69,7 +63,6 @@
         }
 
         animate();
-
     </script>
 </body>
 </html>
