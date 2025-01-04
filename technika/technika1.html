@@ -16,13 +16,9 @@
 </head>
 <body>
     <script type="module">
-        import * as THREE from './three.module.min.js';
-        import { OrbitControls } from './OrbitControls.js';
-        import { XRControllerModelFactory } from './XRControllerModelFactory.js';
-
-        // Alternatíva pre CDN
-        // import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.min.js';
-        // import { OrbitControls } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.min.js';
+    import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
+    import { XRControllerModelFactory } from 'https://cdn.jsdelivr.net/npm/three@0.119.1/examples/jsm/webxr/XRControllerModelFactory.min.js';
 
         try {
             // Scene setup
