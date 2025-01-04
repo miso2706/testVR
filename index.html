@@ -1,23 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR/VR Project</title>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <title>VR Menu</title>
     <style>
-        body { margin: 0; overflow: hidden; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .menu {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px 40px;
+            text-align: center;
+        }
+
+        .menu h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu ul li {
+            margin: 10px 0;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .menu ul li a:hover {
+            color: #0056b3;
+        }
+
+        .submenu {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .submenu a {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .submenu a:hover {
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <a-scene>
-        <!-- 3D Objects -->
-        <a-box position="0 1 -3" rotation="0 45 45" color="#4CC3D9"></a-box>
-        <a-sphere position="2 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-        <a-cylinder position="0 0.75 -2" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
-        <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
+    <div class="menu">
+        <h1>Menu</h1>
+        <ul>
+            <li><a href="#" onclick="showInfo('author')">O autorovi</a></li>
+            <li><a href="#" onclick="showInfo('app')">O aplikácii</a></li>
+            <li>
+                <a href="#" onclick="showInfo('vr')">Výučba s VR</a>
+                <ul class="submenu">
+                    <li><a href="#" onclick="showInfo('technique')">Technika</a></li>
+                    <li><a href="#" onclick="showInfo('electro')">Elektrotechnika</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function showInfo(section) {
+            let message = '';
+            switch (section) {
+                case 'author':
+                    message = 'O autorovi: Táto aplikácia bola vytvorená na podporu výučby VR technológií.';
+                    break;
+                case 'app':
+                    message = 'O aplikácii: Aplikácia demonštruje možnosti AR/VR v edukatívnom prostredí.';
+                    break;
+                case 'vr':
+                    message = 'Výučba s VR: Vyberte konkrétnu kategóriu.';
+                    break;
+                case 'technique':
+                    message = 'Technika: Interaktívne scenáre a simulácie pre technické odbory.';
+                    break;
+                case 'electro':
+                    message = 'Elektrotechnika: AR/VR simulácie obvodov a elektrických komponentov.';
+                    break;
+                default:
+                    message = 'Neznáma sekcia.';
+            }
+            alert(message);
+        }
+    </script>
 </body>
 </html>
