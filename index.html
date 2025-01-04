@@ -3,99 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR Menu</title>
+    <title>Učím sa - Webová Stránka</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
+            background-color: #f9f9f9;
         }
 
-        .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .button {
+        header {
             background-color: #007BFF;
             color: white;
-            border: none;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #0056b3;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
             border-radius: 5px;
-            padding: 15px 30px;
-            font-size: 18px;
-            margin: 10px;
-            cursor: pointer;
             transition: background-color 0.3s;
         }
 
-        .button:hover {
-            background-color: #0056b3;
+        nav a:hover {
+            background-color: #003d80;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
         }
 
         .submenu {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
+            margin-top: 20px;
+            text-align: center;
         }
 
-        .submenu .button {
+        .submenu a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
             background-color: #6c757d;
-            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
-        .submenu .button:hover {
+        .submenu a:hover {
             background-color: #5a6268;
         }
 
-        .visible {
-            display: flex;
+        footer {
+            margin-top: 20px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="menu">
-        <button class="button" onclick="showInfo('author')">O autorovi</button>
-        <button class="button" onclick="showInfo('app')">O aplikácii</button>
-        <button class="button" onclick="toggleSubmenu()">Výučba s VR</button>
-        <div class="submenu" id="submenu">
-            <button class="button" onclick="showInfo('technique')">Technika</button>
-            <button class="button" onclick="showInfo('electro')">Elektrotechnika</button>
-        </div>
-    </div>
+    <header>
+        <h1>Učím sa</h1>
+        <p>Vitajte na interaktívnej stránke pre vzdelávanie!</p>
+    </header>
 
-    <script>
-        function showInfo(section) {
-            let message = '';
-            switch (section) {
-                case 'author':
-                    message = 'O autorovi: Táto aplikácia bola vytvorená na podporu výučby VR technológií.';
-                    break;
-                case 'app':
-                    message = 'O aplikácii: Aplikácia demonštruje možnosti AR/VR v edukatívnom prostredí.';
-                    break;
-                case 'technique':
-                    message = 'Technika: Interaktívne scenáre a simulácie pre technické odbory.';
-                    break;
-                case 'electro':
-                    message = 'Elektrotechnika: AR/VR simulácie obvodov a elektrických komponentov.';
-                    break;
-                default:
-                    message = 'Neznáma sekcia.';
-            }
-            alert(message);
-        }
+    <nav>
+        <a href="#about">O autorovi</a>
+        <a href="#app">O aplikácii</a>
+        <a href="#learning">Výučba s VR</a>
+    </nav>
 
-        function toggleSubmenu() {
-            const submenu = document.getElementById('submenu');
-            submenu.classList.toggle('visible');
-        }
-    </script>
+    <main>
+        <section id="about">
+            <h2>O autorovi</h2>
+            <p>Táto aplikácia bola vytvorená na podporu výučby VR technológií.</p>
+        </section>
+
+        <section id="app">
+            <h2>O aplikácii</h2>
+            <p>Aplikácia demonštruje možnosti AR/VR v edukatívnom prostredí.</p>
+        </section>
+
+        <section id="learning">
+            <h2>Výučba s VR</h2>
+            <p>Vyberte si kategóriu:</p>
+            <div class="submenu">
+                <a href="#technique">Technika</a>
+                <a href="#electro">Elektrotechnika</a>
+            </div>
+        </section>
+
+        <section id="technique">
+            <h2>Technika</h2>
+            <p>Interaktívne scenáre a simulácie pre technické odbory.</p>
+        </section>
+
+        <section id="electro">
+            <h2>Elektrotechnika</h2>
+            <p>AR/VR simulácie obvodov a elektrických komponentov.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Učím sa. Všetky práva vyhradené.</p>
+    </footer>
 </body>
 </html>
