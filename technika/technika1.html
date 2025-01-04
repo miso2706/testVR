@@ -6,7 +6,7 @@
     <title>Technika - AR/VR/MR</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script> 
     <script>
         AFRAME.registerComponent('highlight-on-hover', {
             schema: {
@@ -20,7 +20,7 @@
                 el.addEventListener('raycaster-intersected-cleared', () => {
                     el.setAttribute('material', 'emissive', '#000000');
                 });
-            }
+            } 
         });
     </script>
     <style>
