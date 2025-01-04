@@ -102,14 +102,14 @@
             <a-scene physics="debug: false">
                 <!-- Kamery a ovládače -->
                 <a-camera position="0 1.6 0">
-                    <a-entity laser-controls="hand: left" raycaster="objects: [grabbable]"></a-entity>
-                    <a-entity laser-controls="hand: right" raycaster="objects: [grabbable]"></a-entity>
+                    <a-entity laser-controls="hand: left" raycaster="objects: [grabbable]; interval: 50"></a-entity>
+                    <a-entity laser-controls="hand: right" raycaster="objects: [grabbable]; interval: 50"></a-entity>
                 </a-camera>
 
                 <!-- Interaktívne objekty -->
-                <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" dynamic-body grabbable super-hands class="hover-highlight" event-set__hover="_event: raycaster-intersected; emissive: #FFD700" event-set__leave="_event: raycaster-intersected-cleared; emissive: #000000"></a-box>
-                <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" dynamic-body grabbable super-hands class="hover-highlight" event-set__hover="_event: raycaster-intersected; emissive: #FFD700" event-set__leave="_event: raycaster-intersected-cleared; emissive: #000000"></a-sphere>
-                <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" dynamic-body grabbable super-hands class="hover-highlight" event-set__hover="_event: raycaster-intersected; emissive: #FFD700" event-set__leave="_event: raycaster-intersected-cleared; emissive: #000000"></a-cylinder>
+                <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" dynamic-body grabbable super-hands material="emissive: #000000" event-set__hover="_event: raycaster-intersected; material.emissive: #FFD700" event-set__leave="_event: raycaster-intersected-cleared; material.emissive: #000000"></a-box>
+                <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" dynamic-body grabbable super-hands material="emissive: #000000" event-set__hover="_event: raycaster-intersected; material.emissive: #FFD700" event-set__leave="_event: raycaster-intersected-cleared; material.emissive: #000000"></a-sphere>
+                <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" dynamic-body grabbable super-hands material="emissive: #000000" event-set__hover="_event: raycaster-intersected; material.emissive: #FFD700" event-set__leave="_event: raycaster-intersected-cleared; material.emissive: #000000"></a-cylinder>
 
                 <!-- Statické objekty -->
                 <a-plane position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#7BC8A4" static-body></a-plane>
