@@ -3,90 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technika - AR/VR/MR</title>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/super-hands@4.0.3/dist/super-hands.min.js"></script>
-    <script>
-        AFRAME.registerComponent('highlight-on-hover', {
-            schema: {
-                color: {type: 'color', default: '#FFD700'}
-            },
-            init: function () {
-                const el = this.el;
-                el.addEventListener('raycaster-intersected', () => {
-                    el.setAttribute('material', 'emissive', this.data.color);
-                });
-                el.addEventListener('raycaster-intersected-cleared', () => {
-                    el.setAttribute('material', 'emissive', '#000000');
-                });
-            }
-        });
-    </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .section {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        footer {
-            margin-top: 20px;
-            background-color: #f1f1f1;
-            padding: 10px;
-            text-align: center;
-        }
-        nav {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        nav a {
-            color: #007BFF;
-            text-decoration: none;
-            padding: 10px 15px;
-            border: 1px solid #007BFF;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        nav a:hover {
-            background-color: #007BFF;
-            color: white;
-        }
-    </style>
+    <title>VR Red Cube</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@react-three/xr@latest/dist/react-three-xr.umd.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Technika - AR/VR/MR</h1>
-    </header>
-    <nav>
-        <a href="index.html">Späť na hlavnú stránku</a>
-    </nav>
-    <div class="section">
-        <a-scene physics="debug: false">
-            <a-camera position="0 1.6 0">
-                <a-entity laser-controls="hand: left" raycaster="objects: [grabbable]"></a-entity>
-                <a-entity laser-controls="hand: right" raycaster="objects: [grabbable]"></a-entity>
-            </a-camera>
-            <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" dynamic-body grabbable super-hands material="emissive: #000000" highlight-on-hover></a-box>
-            <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" dynamic-body grabbable super-hands material="emissive: #000000" highlight-on-hover></a-sphere>
-            <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" dynamic-body grabbable super-hands material="emissive: #000000" highlight-on-hover></a-cylinder>
-            <a-plane position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#7BC8A4" static-body></a-plane>
-            <a-sky color="#ECECEC"></a-sky>
-        </a-scene>
-    </div>
-    <footer>
-        <p>&copy; 2025 Technika - AR/VR/MR. Všetky práva vyhradené.</p>
-    </footer>
+    <script>
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add a red cube
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Add a light source
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        // Add a secondary light source for "highlighting"
+        const highlight = new THREE.PointLight(0xffff00, 0, 10); // Initially off
+        scene.add(highlight);
+
+        // Position the camera
+        camera.position.z = 5;
+
+        // Add raycaster and mouse interaction
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onMouseMove(event) {
+            // Update mouse position
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Check for intersection with cube
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(cube);
+
+            if (intersects.length > 0) {
+                highlight.position.copy(intersects[0].point);
+                highlight.intensity = 2; // Turn on highlight
+            } else {
+                highlight.intensity = 0; // Turn off highlight
+            }
+        }
+
+        window.addEventListener('mousemove', onMouseMove, false);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the cube for a simple visual effect
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+    </script>
 </body>
 </html>
