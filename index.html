@@ -17,69 +17,57 @@
         }
 
         .menu {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px 40px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .menu h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333333;
-        }
-
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .menu ul li {
-            margin: 10px 0;
-        }
-
-        .menu ul li a {
-            text-decoration: none;
-            color: #007BFF;
+        .button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
             font-size: 18px;
-            transition: color 0.3s;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .menu ul li a:hover {
-            color: #0056b3;
+        .button:hover {
+            background-color: #0056b3;
         }
 
         .submenu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
             margin-top: 10px;
-            padding-left: 20px;
         }
 
-        .submenu a {
+        .submenu .button {
+            background-color: #6c757d;
             font-size: 16px;
-            color: #555;
         }
 
-        .submenu a:hover {
-            color: #333;
+        .submenu .button:hover {
+            background-color: #5a6268;
+        }
+
+        .visible {
+            display: flex;
         }
     </style>
 </head>
 <body>
     <div class="menu">
-        <h1>Menu</h1>
-        <ul>
-            <li><a href="#" onclick="showInfo('author')">O autorovi</a></li>
-            <li><a href="#" onclick="showInfo('app')">O aplikácii</a></li>
-            <li>
-                <a href="#" onclick="showInfo('vr')">Výučba s VR</a>
-                <ul class="submenu">
-                    <li><a href="#" onclick="showInfo('technique')">Technika</a></li>
-                    <li><a href="#" onclick="showInfo('electro')">Elektrotechnika</a></li>
-                </ul>
-            </li>
-        </ul>
+        <button class="button" onclick="showInfo('author')">O autorovi</button>
+        <button class="button" onclick="showInfo('app')">O aplikácii</button>
+        <button class="button" onclick="toggleSubmenu()">Výučba s VR</button>
+        <div class="submenu" id="submenu">
+            <button class="button" onclick="showInfo('technique')">Technika</button>
+            <button class="button" onclick="showInfo('electro')">Elektrotechnika</button>
+        </div>
     </div>
 
     <script>
@@ -92,9 +80,6 @@
                 case 'app':
                     message = 'O aplikácii: Aplikácia demonštruje možnosti AR/VR v edukatívnom prostredí.';
                     break;
-                case 'vr':
-                    message = 'Výučba s VR: Vyberte konkrétnu kategóriu.';
-                    break;
                 case 'technique':
                     message = 'Technika: Interaktívne scenáre a simulácie pre technické odbory.';
                     break;
@@ -105,6 +90,11 @@
                     message = 'Neznáma sekcia.';
             }
             alert(message);
+        }
+
+        function toggleSubmenu() {
+            const submenu = document.getElementById('submenu');
+            submenu.classList.toggle('visible');
         }
     </script>
 </body>
