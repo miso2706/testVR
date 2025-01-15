@@ -7,6 +7,22 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.4/dist/super-hands.min.js"></script>
+    <script>
+        AFRAME.registerComponent('highlight-on-grab', {
+            schema: {
+                color: {type: 'color', default: '#FFD700'}
+            },
+            init: function () {
+                const el = this.el;
+                el.addEventListener('grab-start', () => {
+                    el.setAttribute('color', this.data.color);
+                });
+                el.addEventListener('grab-end', () => {
+                    el.setAttribute('color', '#4CC3D9');
+                });
+            }
+        });
+    </script>
     <style>
         body {
             margin: 0;
@@ -22,12 +38,12 @@
 
         <!-- Camera with WASD controls -->
         <a-camera position="0 1.6 3" wasd-controls="acceleration: 10" look-controls>
-            <a-entity cursor="rayOrigin: mouse" raycaster="objects: [draggable]"></a-entity>
+            <a-entity cursor="rayOrigin: mouse" raycaster="objects: [grabbable]; interval: 50"></a-entity>
         </a-camera>
 
         <!-- Draggable cube -->
         <a-box position="0 1 -3" color="#4CC3D9" depth="1" height="1" width="1" 
-               draggable dynamic-body super-hands></a-box>
+               grabbable dynamic-body super-hands highlight-on-grab></a-box>
     </a-scene>
 </body>
 </html>
